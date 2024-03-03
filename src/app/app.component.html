@@ -1,6 +1,9 @@
-<div class="container-fluid">
-    <div class="row">
-      <div class="col-4">
+<div class="container text-center">
+  <h1>Insert your details</h1>
+</div>
+<div class="container">
+    <div class="row justify-content-center aling-items-center">
+      <div class="col-4 d-flex justify-content-center aling-items-center">
         <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
           <div>
             <mat-form-field>
@@ -49,10 +52,39 @@
         </form>
         
       </div>
-      <div class="col-8">
+      <div class="col-8 d-flex justify-content-center aling-items-center">
        <pre>
         {{ formValues | json}}
        </pre>
       </div>
     </div>
+</div>
+
+<div class="container text-center">
+  <h1>View your details</h1>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-4 d-flex justify-content-center align-itmes-center">
+      <input type="file" (change)="onFileChange($event)">
+<button (click)="uploadFile()">Upload</button>
+
+    </div>
+    <div class="col-8 d-flex justify-content-center align-itmes-center">
+      <ul>
+        <li *ngFor="let item of jsonData">
+          <p>Name: {{ item.name }}</p>
+          <p>Date of Birth: {{ item.dob }}</p>
+          <ul>
+            <li *ngFor="let event of item.events">
+              <p>Event Name: {{ event.eventName }}</p>
+              <p>Event Description: {{ event.eventDescription }}</p>
+              <p>Event Date: {{ event.eventDate }}</p>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
