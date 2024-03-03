@@ -25,7 +25,8 @@ export class ExportToExcelService {
           dob: this.formatDate(item.dob),
           eventName: event.eventName,
           eventDescription: event.eventDescription,
-          eventDate: this.formatDate(event.eventDate)
+          eventDate: this.formatDate(event.eventDate),
+          eventDateRaw : event.eventDate
         };
         formattedData.push(rowData);
       });
@@ -34,7 +35,8 @@ export class ExportToExcelService {
   }
 
   private formatDate(date: string): string {
-    const formattedDate = new Date(date).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: 'short', year: 'numeric' };
+    const formattedDate = new Date(date).toLocaleDateString('en-GB', options).toUpperCase();
     return formattedDate;
   }
 

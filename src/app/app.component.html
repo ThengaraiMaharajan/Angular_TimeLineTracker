@@ -68,23 +68,25 @@
   <div class="row">
     <div class="col-4 d-flex justify-content-center align-itmes-center">
       <input type="file" (change)="onFileChange($event)">
-<button (click)="uploadFile()">Upload</button>
-
+      <button (click)="uploadFile()">Upload</button>
     </div>
     <div class="col-8 d-flex justify-content-center align-itmes-center">
       <ul>
-        <li *ngFor="let item of jsonData">
-          <p>Name: {{ item.name }}</p>
-          <p>Date of Birth: {{ item.dob }}</p>
-          <ul>
-            <li *ngFor="let event of item.events">
-              <p>Event Name: {{ event.eventName }}</p>
-              <p>Event Description: {{ event.eventDescription }}</p>
-              <p>Event Date: {{ event.eventDate }}</p>
-            </li>
-          </ul>
+        <li *ngFor="let event of jsonData">
+          <dl>
+            <dt>
+              <p>Event: {{ event.eventName }}</p>
+            </dt>
+            <dd>
+              <p><strong>Date</strong>: {{ event.eventDate }}</p>
+              <p><strong>Description</strong>: {{ event.eventDescription }}</p>
+            </dd>
+          </dl>
         </li>
       </ul>
     </div>
   </div>
 </div>
+
+<highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions">
+</highcharts-chart>
