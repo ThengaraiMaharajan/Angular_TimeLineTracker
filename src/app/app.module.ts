@@ -10,6 +10,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+
 
 
 @NgModule({
@@ -24,7 +27,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDatepickerModule,
     MatInputModule,
     MatFormFieldModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCardModule,
+    MatIconModule
   ],
   providers: [
     provideClientHydration(),
