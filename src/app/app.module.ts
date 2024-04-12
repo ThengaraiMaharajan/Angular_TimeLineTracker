@@ -12,7 +12,6 @@ import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapte
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { HighchartsChartModule } from 'highcharts-angular';
 
 
 
@@ -30,8 +29,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
     MatFormFieldModule,
     MatNativeDateModule,
     MatCardModule,
-    MatIconModule,
-    HighchartsChartModule
+    MatIconModule
   ],
   providers: [
     provideClientHydration(),
