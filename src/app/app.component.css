@@ -1,3 +1,20 @@
-.mat-form-field, .mat-input-element {
-    background-color: #fff; /* Set the background color to white */
-  }
+::ng-deep .cus-mat-fields{
+  background-color: #ffffff;
+  color : black;
+  width: 100%;
+}
+::ng-deep .cus-mat-fields mat-form-field{
+  background-color: #ffffff;
+  color : black;
+  width: 100%;
+}
+::ng-deep .cus-mat-fields mat-label{
+  background-color: #ffffff;
+  color : black;
+  width: 100%;
+}
+::ng-deep .cus-mat-fields input{
+  background-color: #ffffff;
+  color : black;
+  width: 100%;
+}

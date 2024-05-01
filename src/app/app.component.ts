@@ -9,16 +9,14 @@ import * as XLSX from 'xlsx';
 })
 export class AppComponent implements OnInit{
 
-  updateFlag = false;
-  data : any;
-
-  @ViewChild('mychart') mychart : any;
   title = 'timeLineTracker';
   myForm!: FormGroup;
   formValues : any;
   jsonData : any;
   canvas: any;
   ctx: any;
+  formSubmittedDisplayData : boolean = false;
+  showFileDataDisplay : boolean = false;
 
   constructor(private fb : FormBuilder, private exportTotExcel : ExportToExcelService){}
   ngOnInit(): void {
@@ -53,6 +51,7 @@ export class AppComponent implements OnInit{
     this.formValues = this.myForm.value;
     console.log('Form Values:', this.myForm.value);
     this.exportTotExcel.exportToExcel([this.formValues], 'form_data');
+    this.formSubmittedDisplayData = true;
   }
 
   onFileChange(event: any) {
@@ -66,11 +65,11 @@ export class AppComponent implements OnInit{
       this.jsonData = XLSX.utils.sheet_to_json(sheet);
     };
     reader.readAsArrayBuffer(file);
+    this.showFileDataDisplay = true;
   }
 
   uploadFile() {
     console.log(this.jsonData);
-    this.data = [1,2,3,4]
-}
+  }
 
 }

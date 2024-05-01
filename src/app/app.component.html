@@ -1,80 +1,81 @@
-<div class="container text-center">
-  <h1>Insert your details</h1>
-</div>
-<div class="container">
-    <div class="row justify-content-center aling-items-center">
-      <div class="col-4 d-flex justify-content-center aling-items-center">
-        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-          <div>
-            <mat-form-field>
-              <mat-label>Name</mat-label>
-              <input matInput formControlName="name" placeholder="Enter Name">
-            </mat-form-field>
+<div class="container-fluid">
+  <h3 class="text-center" >Insert your details</h3>
+  <div class="row justify-content-center aling-items-center border p-1 m-1">
+    <div class="d-flex align-items-center border p-1 m-1" [ngClass]="{'col-4':formSubmittedDisplayData , 'col-8':!formSubmittedDisplayData}">
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="w-100" >
+
+        <div class="mt-2">
+            <label for="name">Name</label>
+            <input type="text" formControlName="name" placeholder="Enter Name" class="form-control" id="name">
+        </div>
+
+        <div class="mt-2">
+            <label for="dob">Choose a date</label>
+            <input type="date" formControlName="dob" class="form-control" id="dob">
+        </div>
+      
+        <div formArrayName="events">
+          <div *ngFor="let event of events.controls; let i = index" [formGroupName]="i">
+
+            <label for="{{i + 'EventName'}}">Event Name</label>
+            <input formControlName="eventName" placeholder="Enter Event Name" class="form-control" id="{{i + 'EventName'}}">
+
+            <label for="{{i + 'EventDescription'}}">Event Description</label>
+            <textarea formControlName="eventDescription" placeholder="Enter Event Description" class="form-control" id="{{i + 'EventDescription'}}"></textarea>
+
+            <label for="{{i + 'EventDate'}}">Choose a date</label>
+            <input type="date" placeholder="Choose a date" formControlName="eventDate" class="form-control" id="{{i + 'EventDate'}}">
+            
+            <button type="button" (click)="removeEvent(i)" class="btn btn-sm btn-danger mt-2" >delete</button>
+
           </div>
-          <div>
-            <mat-form-field appearence="fill">
-              <mat-label>Choose a date</mat-label>
-              <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="dob">
-              <mat-hint>DD/MMM/YYYY</mat-hint>
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-        
-          <div formArrayName="events">
-            <div *ngFor="let event of events.controls; let i = index" [formGroupName]="i">
-              <mat-card>
-                <mat-form-field>
-                  <mat-label>Event Name</mat-label>
-                  <input matInput formControlName="eventName" placeholder="Enter Event Name">
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-label>Event Description</mat-label>
-                  <textarea matInput formControlName="eventDescription" placeholder="Enter Event Description"></textarea>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-form-field appearence="fill">
-                    <mat-label>Choose a date</mat-label>
-                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="eventDate">
-                    <mat-hint>DD/MMM/YYYY</mat-hint>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-                </mat-form-field>
-                <button mat-icon-button color="warn" type="button" (click)="removeEvent(i)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </mat-card>
-            </div>
-          </div>
-          <button mat-raised-button color="primary" type="button" (click)="addEvent()">Add Event</button>
-          <button type="submit" mat-raised-button color="primary">Submit</button>
-        </form>
-        
-      </div>
-      <div class="col-8 d-flex justify-content-center aling-items-center">
-       <pre>
-        {{ formValues | json}}
-       </pre>
-      </div>
+        </div>
+
+        <button type="button" class="btn btn-success btn-sm mt-2" (click)="addEvent()">Add Event</button>
+        <button type="submit" class="btn btn-primary btn-sm mt-2" >Submit</button>
+      
+      </form>
+      
     </div>
+    <div *ngIf="formSubmittedDisplayData" class=" d-flex justify-content-center aling-items-center border p-1 m-1" [ngClass]="{'col-8':formSubmittedDisplayData}">
+      <div class="container">
+
+      <div class="table-responsive">
+        <table class="table">
+          <caption>{{formValues.name}} Events List</caption>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let event of formValues?.events; index as i" >
+                <th scope="row">{{i}}</th>
+                <td>{{event.eventName}}</td>
+                <td>{{event.eventDescription}}</td>
+                <td>{{event.eventDate}}</td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+      <p *ngIf="formValues.events.length==0">Oops you haven't entered your events , so there is not data to display, enter your events and submit again</p>
+    </div>
+
+    </div>
+  </div>
 </div>
 
-<div class="container text-center">
-  <h1>View your details</h1>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-4 d-flex justify-content-center align-itmes-center">
-      <div class="col-6">
-        <input type="file" (change)="onFileChange($event)">
-      </div>
-      <div class="col-6">
-        <button class="btn btn-primary" (click)="uploadFile()">Upload</button>
-      </div>
-    </div>
-    <div class="col-8 d-flex justify-content-center align-itmes-center">
+<div class="container-fluid">
+  <h3 class="text-center">View your details</h3>
+  <div class="border p-1 m-1">
+      <input type="file" (change)="onFileChange($event)">
+      <button class="btn btn-primary btn-sm" (click)="uploadFile()">Upload</button>
+  </div>
+  <div *ngIf="showFileDataDisplay" class="row">
+    <div class="col-8 d-flex justify-content-center align-itmes-center border p-1 m-1">
       <ul>
         <li *ngFor="let event of jsonData">
           <dl>
@@ -82,48 +83,16 @@
               <p>Event: {{ event.eventName }}</p>
             </dt>
             <dd>
-              <p><strong>Date</strong>: {{ event.eventDate }}</p>
-              <p><strong>Description</strong>: {{ event.eventDescription }}</p>
+              <p>
+                <strong>Date</strong>: {{ event.eventDate }}
+              </p>
+              <p>
+                <strong>Description</strong>: {{ event.eventDescription }}
+              </p>
             </dd>
           </dl>
         </li>
       </ul>
     </div>
-  </div>
-</div>
-
-<div class="container">
-  <div class="table-responsive">
-    <table class="table">
-      <caption>List of users</caption>
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>witter</td>
-    </tr>
-  </tbody>
-    </table>
   </div>
 </div>
