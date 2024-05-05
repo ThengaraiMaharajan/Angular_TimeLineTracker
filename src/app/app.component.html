@@ -49,14 +49,18 @@
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
                 <th scope="col">Date</th>
+                <th scope="col">Past Or Future</th>
+                <th scope="col">Day Count</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let event of formValues?.events; index as i" >
-                <th scope="row">{{i}}</th>
+                <th scope="row">{{i+1}}</th>
                 <td>{{event.eventName}}</td>
                 <td>{{event.eventDescription}}</td>
-                <td>{{event.eventDate}}</td>
+                <td>{{event.formatedDate}}</td>
+                <td>{{event.pastOrFuture}}</td>
+                <td>{{event.dayCount}}</td>
               </tr>
             </tbody>
         </table>
@@ -88,6 +92,12 @@
               </p>
               <p>
                 <strong>Description</strong>: {{ event.eventDescription }}
+              </p>
+              <p>
+                <strong>Past Or Present</strong> : {{event.pastOrPresent}}
+              </p>
+              <p>
+                <strong>Day Count</strong>: {{ event.dayCount }}
               </p>
             </dd>
           </dl>

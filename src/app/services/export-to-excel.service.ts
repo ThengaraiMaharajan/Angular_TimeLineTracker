@@ -26,7 +26,9 @@ export class ExportToExcelService {
           eventName: event.eventName,
           eventDescription: event.eventDescription,
           eventDate: this.formatDate(event.eventDate),
-          eventDateRaw : event.eventDate
+          eventDateRaw : event.eventDate,
+          pastOrPresent : event.pastOrFuture,
+          dayCount : event.dayCount
         };
         formattedData.push(rowData);
       });
